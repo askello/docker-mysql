@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+
+  mysql-5.7:
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      - TZ
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_ALLOW_EMPTY_PASSWORD
+    volumes:
+      - ./docker/mysql/5.7/data:/var/lib/mysql
+      - ./docker/mysql/5.7/conf.d:/etc/mysql/conf.d
+      - ./docker/mysql/5.7/logs:/var/log/mysql/
+      - ./docker/mysql/5.7/dump:/dump
+    ports:
+      - 3306:3306
+      
+  mysql-8.0:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      - TZ
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_ALLOW_EMPTY_PASSWORD
+    volumes:
+      - ./docker/mysql/8.0/data:/var/lib/mysql
+      - ./docker/mysql/8.0/conf.d:/etc/mysql/conf.d
+      - ./docker/mysql/8.0/logs:/var/log/mysql/
+      - ./docker/mysql/8.0/dump:/dump
+    ports:
+      - 3307:3306
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    environment:
+      - PMA_ARBITRARY=1
+      - TZ
+    volumes:
+      - ./docker/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+    ports:
+      - "8081-8082:80"
