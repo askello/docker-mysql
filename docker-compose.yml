@@ -16,6 +16,8 @@ services:
       - ./docker/mysql/5.7/dump:/dump
     ports:
       - 3306:3306
+    networks:
+      - nginx-proxy
       
   mysql-8.0:
     image: mysql:8.0
@@ -31,14 +33,37 @@ services:
       - ./docker/mysql/8.0/dump:/dump
     ports:
       - 3307:3306
+    networks:
+      - nginx-proxy
 
   phpmyadmin:
     image: phpmyadmin
-    restart: always
+    restart: unless-stopped
+    container_name: "phpmyadmin.local"
     environment:
-      - PMA_ARBITRARY=1
+      - PMA_ARBITRARY
       - TZ
+      - VIRTUAL_HOST=phpmyadmin.local
     volumes:
       - ./docker/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
     ports:
-      - "8081-8082:80"
+      - 8081:80
+    networks:
+      - nginx-proxy
+
+  phpmyadmin-2:
+    image: phpmyadmin
+    restart: unless-stopped
+    environment:
+      - PMA_ARBITRARY
+      - TZ
+      - VIRTUAL_HOST=phpmyadmin2.local
+    volumes:
+      - ./docker/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+    networks:
+      - nginx-proxy
+
+networks:
+  nginx-proxy:
+    external:
+      name: nginx-proxy
