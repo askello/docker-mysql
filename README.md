@@ -8,7 +8,7 @@ Includes:
 ## How to start:
 1. Start containers: `docker-compose up -d`
 2. Then open phpmyadmin: http://127.0.0.1:8081
-3. In "Server" field type "mysql-5.7" or "mysql-8.0"
+3. Server: `mysql-5.7` or `mysql-8.0`
 4. Login: `root` (without password)
 
 ## PhpMyAdmin notes
