@@ -6,16 +6,11 @@ Includes:
 - PhpMyAdmin (ports 8081 and 8082)
 
 ## How to start:
-```shell
-docker-compose up -d
-```
-
-Then open phpmyadmin: http://127.0.0.1:8081.
-
-In "server" field type "mysql-5.7" or "mysql-8.0"
-
-Login: `root` (without password)
+1. start containers: `docker-compose up -d`
+2. Then open phpmyadmin: http://127.0.0.1:8081
+3. In "Server" field type "mysql-5.7" or "mysql-8.0"
+4. Login: `root` (without password)
 
 ## PhpMyAdmin notes
-1. PhpMyAdmin instance works in arbitrary mode, so you can use it to connect to any other mysql server.
-2. Second instance of PhpMyAdmin is useful when you want to work with multiple servers at the same time.
+1. PhpMyAdmin instance works in [arbitrary mode](https://docs.phpmyadmin.net/en/latest/config.html#cfg_AllowArbitraryServer), so you can use it to connect to any other mysql server.
+2. Second instance of PhpMyAdmin (http://127.0.0.1:8082) is useful when you want to work with multiple servers at the same time.
